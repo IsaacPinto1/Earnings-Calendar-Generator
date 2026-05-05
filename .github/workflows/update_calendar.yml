@@ -19,9 +19,12 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install requests
+        run: pip install requests python-dotenv
 
       - name: Run script
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+          DEBUG: "false"
         run: python generate_ics.py
 
       - name: Commit updated ICS
@@ -29,5 +32,5 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "actions@github.com"
           git add earnings.ics
-          git commit -m "Update earnings calendar" || echo "No changes"
+          git diff --cached --quiet || git commit -m "Update earnings calendar"
           git push
