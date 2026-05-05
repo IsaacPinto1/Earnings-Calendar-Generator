@@ -1,0 +1,33 @@
+name: Update Earnings Calendar
+
+on:
+  schedule:
+    - cron: "0 13 * * *"  # Runs daily at 6am PT (13:00 UTC)
+  workflow_dispatch:      # Allows manual trigger
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run script
+        run: python generate_ics.py
+
+      - name: Commit updated ICS
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+          git add earnings.ics
+          git commit -m "Update earnings calendar" || echo "No changes"
+          git push

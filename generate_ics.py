@@ -1,63 +1,105 @@
 import requests
 import json
 from datetime import datetime, timedelta
+import os
+from dotenv import load_dotenv
 
-API_KEY = "YOUR_API_KEY_HERE"
-BASE_URL = "https://api.api-ninjas.com/v1/earningscalendar"
+load_dotenv()
+API_KEY = os.getenv("API_KEY")
+BASE_URL = "https://api.earningsapi.com/v1/calendar/earnings"
+CACHE_DIR = "cache"
+os.makedirs(CACHE_DIR, exist_ok=True)
+USE_CACHE = True
+
+
+
+if not API_KEY:
+    print("Please set your API_KEY in .env.local")
+    exit(1)
 
 # Load watchlist
 with open("watchlist.json", "r") as f:
-    tickers = json.load(f)["tickers"]
+    tickers = set(json.load(f)["tickers"])
 
-# Date range (next 30 days)
-today = datetime.utcnow().date()
-end_date = today + timedelta(days=30)
+today = datetime.utcnow().date() + timedelta(days=-14)
+days_ahead = 30
 
 events = []
+seen = set()  # prevent duplicates
 
-for ticker in tickers:
-    response = requests.get(
-        BASE_URL,
-        headers={"X-Api-Key": API_KEY},
-        params={
-            "ticker": ticker,
-            "start_date": today.isoformat(),
-            "end_date": end_date.isoformat()
-        }
-    )
+def get_time(report_time, date):
+    # Map to approximate UTC times
+    if report_time == "pre":
+        return f"{date}T133000Z", f"{date}T143000Z"  # 6:30–7:30am PT
+    elif report_time == "after":
+        return f"{date}T210000Z", f"{date}T220000Z"  # 2–3pm PT
+    else:
+        return f"{date}T170000Z", f"{date}T180000Z"  # midday fallback
 
-    if response.status_code != 200:
-        print(f"Error fetching {ticker}")
-        continue
+for i in range(days_ahead):
+    date = today + timedelta(days=i)
+    date_str = date.isoformat()
 
-    data = response.json()
+    cache_file = f"{CACHE_DIR}/{date_str}.json"
 
-    for item in data:
-        date_str = item.get("date")
-        if not date_str:
+    if USE_CACHE and os.path.exists(cache_file):
+        with open(cache_file, "r") as f:
+            data = json.load(f)
+    else:
+        response = requests.get(
+            BASE_URL,
+            params={
+                "date": date_str,
+                "apikey": API_KEY
+            }
+        )
+
+        if response.status_code != 200:
+            print(f"Error fetching {date_str}")
             continue
 
-        dt = datetime.strptime(date_str, "%Y-%m-%d")
+        data = response.json()
 
-        # Default time (earnings often pre/post market, but API may not specify exact time)
-        start = dt.strftime("%Y%m%dT130000Z")  # 6am PT placeholder
-        end = dt.strftime("%Y%m%dT140000Z")
+        with open(cache_file, "w") as f:
+            json.dump(data, f, indent=2)
 
-        summary = f"{ticker} Earnings"
-        description = f"Earnings report for {ticker}"
+    date = data['date']
+    for time in data:
+        if time == "date":
+            continue
+        for item in data[time]:
+            ticker = item.get("symbol")
+            if ticker not in tickers:
+                continue
 
-        event = f"""BEGIN:VEVENT
-UID:{ticker}-{date_str}
-DTSTAMP:{datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")}
-DTSTART:{start}
-DTEND:{end}
-SUMMARY:{summary}
-DESCRIPTION:{description}
-END:VEVENT
-"""
-        events.append(event)
+            if (ticker, date_str) in seen:
+                continue
+            seen.add((ticker, date_str))
 
-# Build ICS file
+            report_time = time
+
+            start, end = get_time(report_time, date_str)
+
+            summary = f"{ticker} Earnings ({report_time.upper()})"
+            description = f"{ticker} earnings report\nTime: {report_time.upper()}"
+
+            eps_estimate = item.get("epsEstimate")
+
+            event = (
+                "BEGIN:VEVENT\n"
+                f"UID:{ticker}-{date_str}\n"
+                f"DTSTAMP:{datetime.utcnow().strftime('%Y%m%dT%H%M%SZ')}\n"
+                f"DTSTART:{start.replace('-', '').replace(':', '')}\n"
+                f"DTEND:{end.replace('-', '').replace(':', '')}\n"
+                f"SUMMARY:{ticker} Earnings{f' ({report_time.upper()})' if report_time else ''}\n"
+                f"DESCRIPTION:{ticker} earnings report"+
+                f"\\nTime: {report_time.upper() if report_time else 'TBD'}" +
+                f"\\nEPS Estimate: {eps_estimate if eps_estimate is not None else 'N/A'}\n"
+                "END:VEVENT\n"
+            )
+            events.append(event)
+
+# Build ICS
 ics_content = f"""BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//Custom Earnings Calendar//EN
