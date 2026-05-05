@@ -7,8 +7,6 @@ from dotenv import load_dotenv
 load_dotenv()
 API_KEY = os.getenv("API_KEY")
 USE_CACHE = os.getenv("DEBUG", "False").lower() == "true"
-print(USE_CACHE)
-exit(1)
 BASE_URL = "https://api.earningsapi.com/v1/calendar/earnings"
 CACHE_DIR = "cache"
 os.makedirs(CACHE_DIR, exist_ok=True)
