@@ -5,6 +5,9 @@ on:
     - cron: "0 13 * * *"  # Runs daily at 6am PT (13:00 UTC)
   workflow_dispatch:      # Allows manual trigger
 
+permissions:
+  contents: write # Allow action to commit updated .ics file
+
 jobs:
   build:
     runs-on: ubuntu-latest
