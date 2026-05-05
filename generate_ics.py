@@ -21,8 +21,8 @@ if not API_KEY:
 with open("watchlist.json", "r") as f:
     tickers = set(json.load(f)["tickers"])
 
-today = datetime.utcnow().date() + timedelta(days=-14)
-days_ahead = 30
+today = datetime.utcnow().date()
+days_ahead = 14
 
 events = []
 seen = set()  # prevent duplicates
