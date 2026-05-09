@@ -1,0 +1,49 @@
+Theses:
+
+SNDK:
+
+GOOGL:
+
+IREN:
+
+AMD:
+
+MU:
+
+DELL:
+
+SMCI: High upside, risky position. Management lawsuit + lots of debt and customer concentration. Main
+  revenue stream is for large data centers (hyperscalars) where they assemble a server around GPUs
+  (building motherboards, chassis, heating) and then shipping them off. Also bad quarter for
+  spending, where they had net cash flow of ($10B). Relies on revenue continuing to grow (which it has).
+  Earnings call states backlog is at an all time high.
+
+  Focus is on a quick time to online (TTO), i.e new GPU gets released and they're the first that
+  have a working server for it (racks, cooling, etc.).
+
+  They also directly mention AMD MI400 GPUs in the earnings call, so rising tide lifts all boats
+  
+  Upside is DCBBS where they design a whole data center top to bottom for a client, again with the priority on speed and ease of use. 
+  Bets on data center design becoming more complicated and more clients wanting on-prem AI infrastructure than big companies needing
+  data centers. Advantaged economically over cloud compute (renting) if used over 3-5year time spans,
+  and also good for data soverignity (e.g international instiutitions want their own secure space).
+  Generally revenue is growing Q/Q for DCBBS, and this aims to improve their margin profile since the
+  Large Data Center shit is low margin because they are buying from NVIDIA then selling (large margin lies with NVIDIA)
+
+ADDYY: Stock fell recently because of tarrifs, and further back losing Yeezy. Both of these things are
+probably short-term. Also PE ratio lowest it has been for ages, and brand name with right athletes
+(+marathon runners using Adidas). World cup coming up + Nike doing bad
+
+NVDA:
+
+LLY: GLP-1 probably going to mass market, revenue growing especially internationally (ex-US), 
+foundayo oral pill behind competitor (waygovy) but doesn't require fasting.
+
+AXP: Strong brand, low growth, dividend stock. Economy doing ok for high spenders and all their
+cards have membership fees.
+
+META:
+
+CRM:
+
+SOFI:
