@@ -4,7 +4,11 @@ SNDK:
 
 GOOGL:
 
-IREN:
+IREN: Fully contracted, chasing supply not demand
+
+Uncontracted capacity, I thought fully contracted?
+
+Air vs liquid cooling? Time to compute?
 
 AMD:
 
