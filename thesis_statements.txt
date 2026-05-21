@@ -58,6 +58,6 @@ cards have membership fees.
 META:
 
 CRM: Future growth depends on seat durability (can an agent just click through the menu), whether inference costs
-compress the margin, and if there's near term demand (tested by RPO growth). Agentforce ARR also needs to grow
+compress the margin, and if there's near term demand (tested by RPO growth). Agentforce ARR also needs to grow (small part of business atm)
 
 SOFI:
