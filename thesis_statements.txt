@@ -38,7 +38,15 @@ ADDYY: Stock fell recently because of tarrifs, and further back losing Yeezy. Bo
 probably short-term. Also PE ratio lowest it has been for ages, and brand name with right athletes
 (+marathon runners using Adidas). World cup coming up + Nike doing bad
 
-NVDA:
+NVDA: (applies to AMD as well) but generally CPU to GPU ratios rising
+(more CPUs) needed and so they are selling Vera CPU separately (didn't do that
+with blackwell). Allegedly partnerting with many companies to get it deployed
+and be a big provider.
+
+	Separately, Hyperscalars are moving traditional CPU workflows to AI
+	like ads, search, marketing, databases so that's more GPU demand.
+	However, this is still affected by the broader CPU:GPU trend going
+	from 1:8 to closer to 1:4 or 1:1
 
 LLY: GLP-1 probably going to mass market, revenue growing especially internationally (ex-US), 
 foundayo oral pill behind competitor (waygovy) but doesn't require fasting.
