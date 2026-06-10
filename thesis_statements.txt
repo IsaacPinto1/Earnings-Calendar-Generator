@@ -61,3 +61,18 @@ CRM: Future growth depends on seat durability (can an agent just click through t
 compress the margin, and if there's near term demand (tested by RPO growth). Agentforce ARR also needs to grow (small part of business atm)
 
 SOFI:
+
+HPE: Makes servers, which is lower margin (~30%). Stable revenue stream networking (acquired Juniper so they sell
+switches and routers and stuff) but also work in data center networking which grew ~200% Y/Y but then fell 20% Q/Q. Generally
+stable campus netowkring, security etc.
+
+Also work in selling servers for data centers, and have a partnership with NVIDIA to sell servers. In addition sells
+storage. Fears are that memory prices is what is driving increased selling prices, not demand, and also harms margins.
+
+They acquired Juniper which helps expand into high-end networking for data centers to compete with Cisco. However, there
+is some drag on the networking margins because of one-time costs from the acquisition but also when you acquire a company
+you inherit all their costs which gets added to your own before you can consolidate the two. Example: Buying a second
+restaurant would initially hurt you by doubling costs because you're not necessarily making double the money yet, but then
+you can consolidate things like sales etc.
+
+Bottom line is that they sell the servers and the networking to connect them.
