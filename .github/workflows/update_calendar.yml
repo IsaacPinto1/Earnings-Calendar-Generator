@@ -5,8 +5,9 @@ on:
     - cron: "0 13 * * *"  # Runs daily at 6am PT (13:00 UTC)
   workflow_dispatch:      # Allows manual trigger
 
+# No repo write access needed anymore — data lives in Supabase, not git.
 permissions:
-  contents: write # Allow action to commit updated .ics file
+  contents: read
 
 jobs:
   build:
@@ -22,18 +23,12 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install requests python-dotenv
+        run: pip install requests python-dotenv supabase
 
       - name: Run script
         env:
           API_KEY: ${{ secrets.API_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
           DEBUG: "false"
         run: python generate_ics.py
-
-      - name: Commit updated ICS
-        run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "actions@github.com"
-          git add earnings.ics
-          git diff --cached --quiet || git commit -m "Update earnings calendar"
-          git push
