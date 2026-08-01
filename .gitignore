@@ -2,3 +2,4 @@ cache/
 .env
 earnings.ics
 __pycache__/
+venv/
