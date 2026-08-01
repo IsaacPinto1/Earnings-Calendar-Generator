@@ -1,2 +1,4 @@
 cache/
 .env
+earnings.ics
+__pycache__/
